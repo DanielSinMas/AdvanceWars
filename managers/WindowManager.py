@@ -37,6 +37,9 @@ class WindowManager:
     def __process_event(self, event):
         if event is not None:
             if event.type == EventType.Type.CURSOR:
-                self.__cursor.set_position(event.pos)
+                self.__cursor.click(event.pos)
+            if event.type == EventType.Type.KEYBOARD:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
 
 

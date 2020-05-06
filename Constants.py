@@ -10,5 +10,6 @@ GREEN_CURSOR = (160, 238, 66)
 
 #EVENTS
 from pygame.locals import (
-    MOUSEBUTTONUP
+    MOUSEBUTTONUP,
+    KEYUP
 )

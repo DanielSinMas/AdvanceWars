@@ -1,7 +1,7 @@
 from Game import Game
 
-#game = Game()
-#game.run()
+game = Game()
+game.run()
 from managers.algoritms.Pathfinding import Pathfinding
 
 map = [[0, 0, 0, 0, 0, 1],
@@ -13,4 +13,3 @@ map = [[0, 0, 0, 0, 0, 1],
 
 path = Pathfinding((3, 4), (5, 5), map)
 path.getPath()
-

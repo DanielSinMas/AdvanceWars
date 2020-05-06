@@ -13,6 +13,9 @@ class Cursor(pygame.sprite.Sprite):
         self.position_y = 0
         self.rect.x = self.position_y
         self.rect.y = self.position_y
+        self.selecting_path = False
+        self.initial_position = [0, 0]
+        self.final_position = [0, 0]
 
     def set_position(self, position):
         pos = pygame.mouse.get_pos()
@@ -28,4 +31,19 @@ class Cursor(pygame.sprite.Sprite):
         self.position_y = int(position[1] * TILESIZE)
         self.rect.x = self.position_x
         self.rect.y = self.position_y
+
+    def click(self, position):
+        if self.selecting_path:
+            self.final_position[0] = position[0]
+            self.final_position[1] = position[1]
+            self.selecting_path = False
+            print("Path:")
+            print("Initial: %s" %str(self.initial_position))
+            print("Final: %s" % str(self.final_position))
+            #Calcular path
+        else:
+            self.initial_position[0] = position[0]
+            self.initial_position[1] = position[1]
+            self.selecting_path = True
+
 

@@ -1,4 +1,6 @@
 import operator
+from typing import List
+
 import numpy
 
 from managers.algoritms.Node import Node
@@ -15,7 +17,7 @@ class Pathfinding:
         heuristic = self.get_heuristic(self.init)
         self.open.append(Node(init[0], init[1], 0, heuristic, None))
 
-    def getPath(self) -> str:
+    def getPath(self) -> List[Node]:
         while True:
             aux = list()
             for item in self.open:
@@ -32,10 +34,10 @@ class Pathfinding:
                     path.append(actual)
                     path.reverse()
 
-                    for item in path:
-                        self.map[item.y][item.x] = "x"
+                    for step in path:
+                        self.map[step.y][step.x] = "x"
                     print(numpy.matrix(self.map))
-                    return ""
+                    return path
 
             self.open.clear()
             for item in sorted(aux, key=operator.attrgetter("f")):
@@ -54,7 +56,7 @@ class Pathfinding:
                       Node(actual.x, actual.y + 1, actual.g + 1, self.get_heuristic((actual.x, actual.y + 1)), actual),
                       Node(actual.x - 1, actual.y, actual.g + 1, self.get_heuristic((actual.x - 1, actual.y)), actual)}
 
-        #Comprobar porque estos nodos no cuentan como que ya están en closed
+        # Comprobar porque estos nodos no cuentan como que ya están en closed
 
         for node in neighbours:
             if node.x >= 0 and node.y >= 0 and node.x < len(self.map[0]) and node.y < len(self.map) and \
