@@ -17,13 +17,13 @@ class Camera:
         position_x = self.camera.topleft[0]
         position_y = self.camera.topleft[1]
         if mouse_position[0] >= SCREEN_WIDTH - (TILESIZE * 2):
-            position_x -= 10
+            position_x -= TILESIZE
         if mouse_position[0] <= (TILESIZE * 2):
-            position_x += 10
+            position_x += TILESIZE
         if mouse_position[1] >= SCREEN_HEIGHT - (TILESIZE * 2):
-            position_y -= 10
+            position_y -= TILESIZE
         if mouse_position[1] <= (TILESIZE * 2):
-            position_y += 10
+            position_y += TILESIZE
 
         position_x = max(-(self.width - SCREEN_WIDTH), position_x)
         position_x = min(0, position_x)
