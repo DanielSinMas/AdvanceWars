@@ -40,7 +40,7 @@ class Cursor(pygame.sprite.Sprite):
             print("Path:")
             print("Initial: %s" %str(self.initial_position))
             print("Final: %s" % str(self.final_position))
-            #Calcular path
+
         else:
             self.initial_position[0] = position[0]
             self.initial_position[1] = position[1]

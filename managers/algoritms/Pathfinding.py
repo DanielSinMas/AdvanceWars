@@ -33,9 +33,8 @@ class Pathfinding:
                         actual = actual.parent
                     path.append(actual)
                     path.reverse()
-
-                    for step in path:
-                        self.map[step.y][step.x] = "x"
+                    for item in path:
+                        self.map[item.y][item.x] = "X"
                     print(numpy.matrix(self.map))
                     return path
 
