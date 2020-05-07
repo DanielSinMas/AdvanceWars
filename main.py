@@ -15,7 +15,7 @@ map = [[0, 0, 0, 0, 0, 1],
 
 before = datetime.datetime.now()
 
-path = Pathfinding((3, 4), (5, 5), map)
+path = Pathfinding([3, 4], [5, 5], map)
 path.getPath()
 
 after = datetime.datetime.now()

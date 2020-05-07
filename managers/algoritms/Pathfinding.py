@@ -1,7 +1,5 @@
+import datetime
 import operator
-from typing import List
-
-import numpy
 
 from managers.algoritms.Node import Node
 
@@ -17,7 +15,8 @@ class Pathfinding:
         heuristic = self.get_heuristic(self.init)
         self.open.append(Node(init[0], init[1], 0, heuristic, None))
 
-    def getPath(self) -> List[Node]:
+    def getPath(self):
+        before = datetime.datetime.now()
         while True:
             aux = list()
             for item in self.open:
@@ -29,13 +28,13 @@ class Pathfinding:
                 else:
                     path = []
                     while actual.parent is not None:
-                        path.append(actual)
+                        path.append((actual.x, actual.y))
                         actual = actual.parent
-                    path.append(actual)
+                    path.append((actual.x, actual.y))
                     path.reverse()
-                    for item in path:
-                        self.map[item.y][item.x] = "X"
-                    print(numpy.matrix(self.map))
+                    after = datetime.datetime.now()
+                    difference = (before - after).microseconds / 1000000
+                    print(str(difference))
                     return path
 
             self.open.clear()
@@ -55,11 +54,9 @@ class Pathfinding:
                       Node(actual.x, actual.y + 1, actual.g + 1, self.get_heuristic((actual.x, actual.y + 1)), actual),
                       Node(actual.x - 1, actual.y, actual.g + 1, self.get_heuristic((actual.x - 1, actual.y)), actual)}
 
-        # Comprobar porque estos nodos no cuentan como que ya están en closed
-
         for node in neighbours:
             if node.x >= 0 and node.y >= 0 and node.x < len(self.map[0]) and node.y < len(self.map) and \
-                    self.map[node.y][node.x] == 0 and not self.in_closed(node) and not node in self.open:
+                    self.map[node.y][node.x] == 0 and not self.in_closed(node) and not self.in_open(node):
                 aux.append(node)
             elif node.x >= 0 and node.y >= 0 and node.x < len(self.map[0]) and node.y < len(self.map):
                 self.closed.append(node)
@@ -72,5 +69,11 @@ class Pathfinding:
     def in_closed(self, node):
         for item in self.closed:
             if node.x == item.x and node.y == item.y:
+                return True
+        return False
+
+    def in_open(self, node):
+        for item in self.open:
+            if node.x == item.x and node.x == item.y:
                 return True
         return False

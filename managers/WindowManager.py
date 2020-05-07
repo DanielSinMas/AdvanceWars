@@ -18,13 +18,13 @@ class WindowManager:
 
     def update(self):
         self.__process_event(self.__event_manager.get_event())
-        self.__cursor.update()
+        self.__cursor.update(self.__scene.matrix)
 
     def draw(self):
         self.__screen.fill(BLACK)
         map_surface = self.__scene.draw()
         self.__screen.blit(map_surface, self.__camera.apply_map(map_surface.get_rect()))
-        self.__screen.blit(self.__cursor.image, self.__cursor.rect)
+        self.__cursor.draw(self.__screen)
         pygame.display.flip()
         self.clock.tick(60)
 
