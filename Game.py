@@ -10,6 +10,9 @@ class Game:
         self.window_manager = WindowManager()
 
     def run(self):
-        while True:
+        while self.window_manager.is_running:
+            self.window_manager.events()
             self.window_manager.update()
             self.window_manager.draw()
+
+        pygame.quit()

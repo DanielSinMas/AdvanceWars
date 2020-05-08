@@ -7,6 +7,7 @@ from managers.TiledMapManager import TiledMapManager
 
 
 class MapScene(BaseScene):
+
     def __init__(self):
         self.map_manager = TiledMapManager('map1/map1.tmx')
         self.map = self.map_manager.get_map()
@@ -23,7 +24,6 @@ class MapScene(BaseScene):
                     tile = self.map.get_tile_image(x, y, index)
                     if tile:
                         surface.blit(tile, (x * self.map.tilewidth, y * self.map.tileheight))
-
         return surface
 
     def set_obstacles(self, matrix):

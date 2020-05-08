@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="19">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="28">
  <tileset firstgid="1" source="grass.tsx"/>
  <tileset firstgid="19" source="cement.tsx"/>
  <tileset firstgid="37" source="../map2/castle.tsx"/>
@@ -72,7 +72,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="obstacles">
-  <object id="1" name="wall" x="112" y="64" width="64" height="96"/>
+  <object id="1" name="wall" x="96" y="64.3333" width="96" height="96"/>
   <object id="3" name="Player" x="1272" y="424" width="32" height="32"/>
   <object id="4" name="wall" x="0" y="0" width="1600" height="32"/>
   <object id="5" name="wall" x="1584" y="32" width="16" height="352"/>
@@ -84,14 +84,14 @@
     <property name="goto" value="maps/map2/map2.tmx"/>
    </properties>
   </object>
-  <object id="10" name="wall" x="399.192" y="287.039" width="64" height="96"/>
-  <object id="11" name="wall" x="687.5" y="352" width="64" height="96"/>
-  <object id="12" name="wall" x="784" y="192" width="64" height="96"/>
-  <object id="13" name="wall" x="816" y="479.5" width="64" height="96"/>
-  <object id="14" name="wall" x="720" y="574.667" width="64" height="96"/>
-  <object id="15" name="wall" x="399.333" y="671.333" width="64" height="96"/>
-  <object id="16" name="wall" x="240" y="478.667" width="64" height="96"/>
-  <object id="17" name="wall" x="1008" y="704.667" width="64" height="96"/>
-  <object id="18" name="wall" x="1232.67" y="510.667" width="64" height="96"/>
+  <object id="19" name="wall" x="384.167" y="287.333" width="96" height="96"/>
+  <object id="20" name="wall" x="672.167" y="352" width="96" height="96"/>
+  <object id="21" name="wall" x="768.167" y="192.667" width="96" height="96"/>
+  <object id="22" name="wall" x="800.167" y="479.333" width="96" height="96"/>
+  <object id="23" name="wall" x="702.833" y="576" width="96" height="96"/>
+  <object id="24" name="wall" x="384.833" y="672.667" width="96" height="96"/>
+  <object id="25" name="wall" x="224.167" y="481.333" width="96" height="96"/>
+  <object id="26" name="wall" x="992.833" y="705.333" width="96" height="96"/>
+  <object id="27" name="wall" x="1217.5" y="510.667" width="95.6667" height="96"/>
  </objectgroup>
 </map>

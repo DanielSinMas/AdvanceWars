@@ -33,7 +33,7 @@ class Pathfinding:
                     path.append((actual.x, actual.y))
                     path.reverse()
                     after = datetime.datetime.now()
-                    difference = (before - after).microseconds / 1000000
+                    difference = (after - before).total_seconds()
                     print(str(difference))
                     return path
 

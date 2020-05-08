@@ -4,6 +4,7 @@ from Scenes.MapScene import MapScene
 from entities.Cursor import Cursor
 from managers.Camera import Camera
 from managers.EventManager import EventManager, EventType
+from managers.TextureManager import TextureManager
 
 
 class WindowManager:
@@ -15,6 +16,9 @@ class WindowManager:
         self.__scene = MapScene()
         self.__camera = Camera(self.__scene.map_manager.map.width * TILESIZE, self.__scene.map_manager.map.height * TILESIZE)
         self.clock = pygame.time.Clock()
+        self.is_running = True
+        self.texture_manager = TextureManager()
+        self.texture_manager.load("tank", "assets/images/tank.png")
 
     def update(self):
         self.__process_event(self.__event_manager.get_event())
@@ -25,6 +29,7 @@ class WindowManager:
         map_surface = self.__scene.draw()
         self.__screen.blit(map_surface, self.__camera.apply_map(map_surface.get_rect()))
         self.__cursor.draw(self.__screen)
+        self.texture_manager.draw("tank", 15, 16, 300, 300, self.__screen)
         pygame.display.flip()
         self.clock.tick(60)
 
@@ -40,6 +45,12 @@ class WindowManager:
                 self.__cursor.click(event.pos)
             if event.type == EventType.Type.KEYBOARD:
                 if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
+                    self.quit()
+
+    def events(self):
+        pass
+
+    def quit(self):
+        self.is_running = False
 
 
