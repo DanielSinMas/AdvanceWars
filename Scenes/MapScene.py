@@ -9,6 +9,7 @@ from managers.TiledMapManager import TiledMapManager
 class MapScene(BaseScene):
 
     def __init__(self):
+        super().__init__()
         self.map_manager = TiledMapManager('map1/map1.tmx')
         self.map = self.map_manager.get_map()
         width = int(self.map.width)
