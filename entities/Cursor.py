@@ -1,10 +1,11 @@
 import pygame
 from Constants import *
+from entities.Unit import Unit
 from managers.algoritms.Pathfinding import Pathfinding
 
 
 class Cursor(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, cursor_callback):
         self.groups = pygame.sprite.Group()
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.image = pygame.Surface((TILESIZE, TILESIZE))
@@ -20,6 +21,8 @@ class Cursor(pygame.sprite.Sprite):
         self.path = list()
         self.clicked = False
         self.position = None
+        self.unit_selected = None
+        self.cursor_callback = cursor_callback
 
     def set_position(self, position):
         self.position_x = int(position[0] * TILESIZE)
@@ -35,7 +38,7 @@ class Cursor(pygame.sprite.Sprite):
                 self.position = position
             else:
                 if position[0] is not self.position[0] or position[1] is not self.position[1]:
-                    if abs(position[1] - self.initial_position[1]) + abs(position[0] - self.initial_position[0]) <= 8 \
+                    if abs(position[1] - self.initial_position[1]) + abs(position[0] - self.initial_position[0]) <= self.unit_selected.movement \
                             and map_matrix[position[1]][position[0]] == 0:
                         self.path.clear()
                         self.position = position
@@ -46,7 +49,7 @@ class Cursor(pygame.sprite.Sprite):
         self.rect.x = self.position_x
         self.rect.y = self.position_y
 
-    def draw(self, screen):
+    def draw(self, screen, camera):
         screen.blit(self.image, self.rect)
         image = pygame.Surface((TILESIZE, TILESIZE))
         image.fill(GREEN_CURSOR)
@@ -55,19 +58,29 @@ class Cursor(pygame.sprite.Sprite):
             for node in self.path:
                 rect.x = node[0] * TILESIZE
                 rect.y = node[1] * TILESIZE
-                screen.blit(image, rect)
+                screen.blit(image, camera.apply_camera(rect))
 
-    def click(self, position):
+    def click(self, unit):
         if self.clicked:
             self.clicked = False
-            if self.path is not None:
-                self.path.clear
+            if self.path is not None and unit is not Unit:
+                if self.path.__contains__((unit[0], unit[1])):
+                    self.unit_selected.x = unit[0]
+                    self.unit_selected.y = unit[1]
+                    self.cursor_callback.move_unit(self.unit_selected, unit)
+                self.path.clear()
                 self.position = None
 
         else:
-            self.initial_position[0] = position[0]
-            self.initial_position[1] = position[1]
-            self.clicked = True
-            if self.path is not None: self.path.clear()
+            if type(unit) is Unit:
+                self.unit_selected = unit
+                self.initial_position[0] = unit.x
+                self.initial_position[1] = unit.y
+                self.clicked = True
+                if self.path is not None: self.path.clear()
+
+    class CursorCallback():
+        def move_unit(self, unit, new_pos):
+            pass
 
 

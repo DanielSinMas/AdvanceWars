@@ -34,3 +34,6 @@ class Camera:
         self.camera = pygame.Rect(position_x, position_y, self.width, self.height)
 
         return map_rect.move(position_x, position_y)
+
+    def apply_camera(self, unit_rect):
+        return unit_rect.move(self.camera.x, self.camera.y)
