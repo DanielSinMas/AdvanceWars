@@ -3,6 +3,8 @@ from pytmx import pytmx
 
 from Constants import *
 from Scenes.BaseScene import BaseScene
+from entities.Unit import Unit
+from managers.TextureManager import TextureManager
 from managers.TiledMapManager import TiledMapManager
 
 
@@ -16,8 +18,13 @@ class MapScene(BaseScene):
         height = int(self.map.height)
         self.matrix = numpy.zeros((height, width))
         self.set_obstacles(self.matrix)
+        self.unities = []
+        self.texture_manager = TextureManager()
+        self.unities.append(Unit())
+        for unit in self.unities:
+            self.texture_manager.load(unit.image, unit.image)
 
-    def draw(self):
+    def draw_map(self):
         surface = self.map_manager.get_surface()
         for index, layer in enumerate(self.map.visible_layers):
             if isinstance(layer, pytmx.TiledTileLayer):
@@ -25,6 +32,12 @@ class MapScene(BaseScene):
                     tile = self.map.get_tile_image(x, y, index)
                     if tile:
                         surface.blit(tile, (x * self.map.tilewidth, y * self.map.tileheight))
+        return surface
+
+    def draw_units(self):
+        surface = self.map_manager.get_surface()
+        for unit in self.unities:
+            self.texture_manager.draw(unit.image, unit.x, unit.y, unit.width, unit.height, surface)
         return surface
 
     def set_obstacles(self, matrix):

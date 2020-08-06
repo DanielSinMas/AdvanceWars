@@ -24,9 +24,11 @@ class WindowManager:
 
     def draw(self):
         self.__screen.fill(BLACK)
-        map_surface = self.__scene.draw()
+        map_surface = self.__scene.draw_map()
+        self.__scene.draw_units()
         self.__screen.blit(map_surface, self.__camera.apply_map(map_surface.get_rect()))
         self.__cursor.draw(self.__screen)
+
         pygame.display.flip()
         self.clock.tick(60)
 

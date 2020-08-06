@@ -35,7 +35,7 @@ class Cursor(pygame.sprite.Sprite):
                 self.position = position
             else:
                 if position[0] is not self.position[0] or position[1] is not self.position[1]:
-                    if abs(position[1] - self.initial_position[1]) + abs(position[0] - self.initial_position[0]) <= 5 \
+                    if abs(position[1] - self.initial_position[1]) + abs(position[0] - self.initial_position[0]) <= 8 \
                             and map_matrix[position[1]][position[0]] == 0:
                         self.path.clear()
                         self.position = position
