@@ -1,5 +1,6 @@
 import numpy
 import pygame
+from pygame.rect import Rect
 from pytmx import pytmx
 
 from Constants import *
@@ -21,7 +22,7 @@ class MapScene(BaseScene, Cursor.CursorCallback):
         self.map = self.map_manager.get_map()
         width = int(self.map.width)
         height = int(self.map.height)
-        self.matrix = numpy.zeros((height, width))
+        self.matrix = numpy.zeros((width, height))
         self.set_obstacles(self.matrix)
         self.unities = []
         self.texture_manager = TextureManager()
@@ -64,7 +65,9 @@ class MapScene(BaseScene, Cursor.CursorCallback):
     def process_event(self, event):
         if event is not None:
             if event.type == EventType.Type.CURSOR:
-                click_position = event.pos
+                position_rect = self.__camera.apply_camera_cursor(Rect(event.pos[0] * TILESIZE, event.pos[1] * TILESIZE, 0, 0))
+                click_position = (int(position_rect.x / TILESIZE), int(position_rect.y / TILESIZE))
+                print(click_position)
                 entity_selected = self.matrix[click_position[0]][click_position[1]]
                 if entity_selected == EntityType.UNIT.value:
                     for unit in self.unities:
@@ -88,10 +91,10 @@ class MapScene(BaseScene, Cursor.CursorCallback):
                     width = 1
                 if height <= 1:
                     height = 1
-                matrix[initial[1]][initial[0]] = 1
+                matrix[initial[0]][initial[1]] = 1
                 for i in range(0, width):
                     for j in range(0, height):
-                        matrix[initial[1] + j][initial[0] + i] = 1
+                        matrix[initial[0] + i][initial[1] + j] = 1
 
     def move_unit(self, unit, new_pos):
         unit_pos = (unit.x, unit.y)

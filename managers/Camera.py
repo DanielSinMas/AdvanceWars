@@ -37,3 +37,6 @@ class Camera:
 
     def apply_camera(self, unit_rect):
         return unit_rect.move(self.camera.x, self.camera.y)
+
+    def apply_camera_cursor(self, unit_rect):
+        return unit_rect.move(-self.camera.x, -self.camera.y)

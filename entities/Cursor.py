@@ -39,7 +39,7 @@ class Cursor(pygame.sprite.Sprite):
             else:
                 if position[0] is not self.position[0] or position[1] is not self.position[1]:
                     if abs(position[1] - self.initial_position[1]) + abs(position[0] - self.initial_position[0]) <= self.unit_selected.movement \
-                            and map_matrix[position[1]][position[0]] == 0:
+                            and map_matrix[position[0]][position[1]] == 0:
                         self.path.clear()
                         self.position = position
                         result = Pathfinding(self.initial_position, self.position, map_matrix)
@@ -77,10 +77,10 @@ class Cursor(pygame.sprite.Sprite):
                 self.initial_position[0] = unit.x
                 self.initial_position[1] = unit.y
                 self.clicked = True
-                if self.path is not None: self.path.clear()
+                if self.path is not None:
+                    self.path.clear()
 
-    class CursorCallback():
+    class CursorCallback:
         def move_unit(self, unit, new_pos):
             pass
-
 

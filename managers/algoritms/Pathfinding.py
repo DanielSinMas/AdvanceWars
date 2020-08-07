@@ -16,6 +16,7 @@ class Pathfinding:
         self.open.append(Node(init[0], init[1], 0, heuristic, None))
 
     def getPath(self):
+        print("Init:" + str(self.init) + " - Destiny: " + str(self.destiny))
         before = datetime.datetime.now()
         while True:
             aux = list()
@@ -58,8 +59,8 @@ class Pathfinding:
             Node(actual.x - 1, actual.y, actual.g + 1, self.get_heuristic((actual.x - 1, actual.y)), actual)}
 
         for node in neighbours:
-            if node.x >= 0 and node.y >= 0 and node.x < len(self.map[0]) and node.y < len(self.map) and \
-                    self.map[node.y][node.x] == 0 and not self.in_closed(node) and not self.in_open(node):
+            if node.x >= 0 and node.y >= 0 and node.x < len(self.map) and node.y < len(self.map[0]) and \
+                    self.map[node.x][node.y] == 0 and not self.in_closed(node) and not self.in_open(node):
                 if not self.in_aux(node, aux):
                     aux.append(node)
             elif node.x >= 0 and node.y >= 0 and node.x < len(self.map[0]) and node.y < len(self.map):
